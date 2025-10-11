@@ -61,5 +61,28 @@ public class main {
         for (Person person : people) {
             person.displayDetails(); // Each calls its own overridden version
         }
+
+        // Part 6: Interface-Driven Persistence with Storage
+        System.out.println("\n=== Saving Data to Files ===");
+        
+        // Create lists for storage
+        List<Student> students = new ArrayList<>();
+        students.add(student1);
+        students.add(student2);
+        
+        List<Course> courses = new ArrayList<>();
+        courses.add(course1);
+        courses.add(course2);
+        
+        // Save data to files using FileStorageService
+        FileStorageService.saveData(students, "students.txt");
+        FileStorageService.saveData(courses, "courses.txt");
+        FileStorageService.saveData(attendanceLog, "attendance_log.txt");
+        
+        System.out.println("\n=== Data Saved Successfully ===");
+        System.out.println("Check the following files:");
+        System.out.println("- students.txt");
+        System.out.println("- courses.txt");
+        System.out.println("- attendance_log.txt");
     }
 }

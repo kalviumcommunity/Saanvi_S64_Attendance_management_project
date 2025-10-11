@@ -1,6 +1,6 @@
 package com.school;
 
-public class AttendanceRecord {
+public class AttendanceRecord implements Storable {
     private int studentId;
     private int courseId;
     private String status;
@@ -36,5 +36,11 @@ public class AttendanceRecord {
         System.out.println("AttendanceRecord -> Student ID: " + studentId +
                            ", Course ID: C" + courseId +
                            ", Status: " + status);
+    }
+
+    // Implement Storable interface - CSV format
+    @Override
+    public String toDataString() {
+        return this.studentId + "," + this.courseId + "," + this.status;
     }
 }
