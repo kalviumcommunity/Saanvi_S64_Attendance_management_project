@@ -1,6 +1,6 @@
 package com.school;
 
-public class Student extends Person {
+public class Student extends Person implements Storable {
     private String gradeLevel;
 
     // Constructor
@@ -24,5 +24,11 @@ public class Student extends Person {
     // Keep getStudentId() for backward compatibility
     public int getStudentId() {
         return this.getId();
+    }
+
+    // Implement Storable interface - CSV format
+    @Override
+    public String toDataString() {
+        return this.getId() + "," + this.getName() + "," + this.gradeLevel;
     }
 }
