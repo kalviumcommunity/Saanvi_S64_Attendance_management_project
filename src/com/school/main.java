@@ -21,20 +21,17 @@ public class main {
         Course course1 = new Course("Mathematics");
         Course course2 = new Course("Science");
 
-        // Display students
-        System.out.println("=== Students ===");
-        student1.displayDetails();
-        student2.displayDetails();
-
-        // Display teachers
-        System.out.println("\n=== Teachers ===");
-        teacher1.displayDetails();
-        teacher2.displayDetails();
-
-        // Display staff
-        System.out.println("\n=== Staff ===");
-        staff1.displayDetails();
-        staff2.displayDetails();
+        // Part 7: Polymorphic Behaviour - School Directory
+        System.out.println("=== School Directory ===");
+        ArrayList<Person> schoolPeople = new ArrayList<>();
+        schoolPeople.add(student1);
+        schoolPeople.add(student2);
+        schoolPeople.add(teacher1);
+        schoolPeople.add(teacher2);
+        schoolPeople.add(staff1);
+        schoolPeople.add(staff2);
+        
+        displaySchoolDirectory(schoolPeople);
 
         // Display courses
         System.out.println("\n=== Courses ===");
@@ -44,10 +41,10 @@ public class main {
         // Attendance Log
         List<AttendanceRecord> attendanceLog = new ArrayList<>();
 
-        // Add attendance records using inherited getId() method
-        attendanceLog.add(new AttendanceRecord(student1.getId(), course1.getCourseId(), "Present"));
-        attendanceLog.add(new AttendanceRecord(student2.getId(), course2.getCourseId(), "Absent"));
-        attendanceLog.add(new AttendanceRecord(student1.getId(), course2.getCourseId(), "Late")); // invalid
+        // Add attendance records using Student and Course objects
+        attendanceLog.add(new AttendanceRecord(student1, course1, "Present"));
+        attendanceLog.add(new AttendanceRecord(student2, course2, "Absent"));
+        attendanceLog.add(new AttendanceRecord(student1, course2, "Late")); // invalid
 
         // Display attendance
         System.out.println("\n=== Attendance Records ===");
@@ -55,20 +52,16 @@ public class main {
             record.displayRecord();
         }
 
-        // Demonstrate polymorphism - all Person objects can be stored in a Person array
-        // System.out.println("\n=== Polymorphism Demo ===");
-        Person[] people = {student1, student2, teacher1, teacher2, staff1, staff2};
-        for (Person person : people) {
-            person.displayDetails(); // Each calls its own overridden version
-        }
-
         // Part 6: Interface-Driven Persistence with Storage
         System.out.println("\n=== Saving Data to Files ===");
         
-        // Create lists for storage
+        // Filter students from schoolPeople list using instanceof
         List<Student> students = new ArrayList<>();
-        students.add(student1);
-        students.add(student2);
+        for (Person person : schoolPeople) {
+            if (person instanceof Student) {
+                students.add((Student) person);
+            }
+        }
         
         List<Course> courses = new ArrayList<>();
         courses.add(course1);
@@ -84,5 +77,12 @@ public class main {
         System.out.println("- students.txt");
         System.out.println("- courses.txt");
         System.out.println("- attendance_log.txt");
+    }
+
+    // Part 7: Display School Directory using polymorphism
+    public static void displaySchoolDirectory(List<Person> people) {
+        for (Person person : people) {
+            person.displayDetails(); // Each calls its own overridden version at runtime
+        }
     }
 }

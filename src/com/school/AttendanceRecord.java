@@ -1,30 +1,38 @@
 package com.school;
 
 public class AttendanceRecord implements Storable {
-    private int studentId;
-    private int courseId;
+    private Student student;
+    private Course course;
     private String status;
 
     // Constructor with validation
-    public AttendanceRecord(int studentId, int courseId, String status) {
-        this.studentId = studentId;
-        this.courseId = courseId;
+    public AttendanceRecord(Student student, Course course, String status) {
+        this.student = student;
+        this.course = course;
 
         if (status.equalsIgnoreCase("Present") || status.equalsIgnoreCase("Absent")) {
             this.status = status;
         } else {
             this.status = "Invalid";
-            System.out.println("⚠ Warning: Invalid attendance status provided for Student ID: " + studentId);
+            System.out.println("⚠ Warning: Invalid attendance status provided for Student ID: " + student.getId());
         }
     }
 
     // Getters
+    public Student getStudent() {
+        return student;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
     public int getStudentId() {
-        return studentId;
+        return student.getId();
     }
 
     public int getCourseId() {
-        return courseId;
+        return course.getCourseId();
     }
 
     public String getStatus() {
@@ -33,14 +41,16 @@ public class AttendanceRecord implements Storable {
 
     // Display method
     public void displayRecord() {
-        System.out.println("AttendanceRecord -> Student ID: " + studentId +
-                           ", Course ID: C" + courseId +
-                           ", Status: " + status);
+        System.out.println("AttendanceRecord -> Student: " + student.getName() + 
+                           " (ID: " + student.getId() + "), " +
+                           "Course: " + course.getCourseName() + 
+                           " (ID: C" + course.getCourseId() + "), " +
+                           "Status: " + status);
     }
 
     // Implement Storable interface - CSV format
     @Override
     public String toDataString() {
-        return this.studentId + "," + this.courseId + "," + this.status;
+        return this.student.getId() + "," + this.course.getCourseId() + "," + this.status;
     }
 }
