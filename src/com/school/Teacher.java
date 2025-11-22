@@ -1,6 +1,6 @@
 package com.school;
 
-public class Teacher extends Person {
+public class Teacher extends Person implements Storable {
     private String subjectTaught;
 
     // Constructor
@@ -19,5 +19,11 @@ public class Teacher extends Person {
     public void displayDetails() {
         System.out.println("Teacher ID: " + this.getId() + ", Name: " + this.getName() + 
                           ", Subject Taught: " + this.subjectTaught);
+    }
+
+    // Implement Storable interface - CSV format
+    @Override
+    public String toDataString() {
+        return this.getId() + "," + this.getName() + "," + this.subjectTaught;
     }
 }
